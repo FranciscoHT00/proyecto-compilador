@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proyecto Compilador</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="d-flex flex-column align-items-center py-3 text-bg-dark">
+        <h1>Automata de Pila</h1>
+        <h2>Reconocedor de Palíndromos Binarios con Separador</h2>
+      </div>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-2 py-3 text-bg-dark">
+          <h4>{{ user.name }}</h4>
+          <hr />
+          <ul class="nav nav-pills flex-column">
+            <li class="py-2">
+              <input type="text" class="w-100" id="input_word" />
+            </li>
+            <li class="py-2">
+              <button type="button" class="btn btn-primary" id="load_btn">
+                Cargar
+              </button>
+            </li>
+            <li class="py-2">
+              <div
+                class="btn-group-vertical"
+                role="group"
+                aria-label="Controles"
+              >
+                <button
+                  type="button"
+                  class="btn btn-outline-light"
+                  id="start_btn"
+                >
+                  Iniciar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-light"
+                  id="pause_btn"
+                >
+                  Pausar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-light"
+                  id="cancel_btn"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </li>
+            <li>
+              <label for="speed_input" class="form-label">Velocidad</label>
+              <input
+                type="range"
+                class="form-range w-75"
+                min="1"
+                max="5"
+                id="speed_input"
+              />
+            </li>
+          </ul>
+          <a href="index_en.html">English</a>
+          <a href="index_pt.html">Português</a>
+          <hr />
+        </nav>
+
+        <main class="col-9">
+          <div class="row h-100">
+            <div class="col p-0" id="graph_container"></div>
+          </div>
+        </main>
+
+        <div class="d-flex pe-0 col-1 border border-2 border-dark">
+          <div
+            class="d-flex pe-2 flex-column-reverse w-100 overflow-scroll"
+            style="height: 400px"
+            id="stack_container"
+          ></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2 bg-dark"></div>
+        <div class="col-9 border-top border-2 border-dark">
+          <div
+            class="d-flex flex-row justify-content-center overflow-scroll py-0"
+            id="word_container"
+          >
+            <h2 class="text-center mb-0">NO HAY PALABRA ACTIVA</h2>
+          </div>
+        </div>
+        <div class="col-1 text-bg-dark text-center">
+          <h2>PILA</h2>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-bg-dark pt-3 pb-2">
+      <ul class="nav justify-content-center">
+        <li class="nav-item"><p class="px-4">Francisco Hernández</p></li>
+        <li class="nav-item"><p class="px-4">Anderson Maldonado</p></li>
+      </ul>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/gojs/release/go.js"></script>
+    <script src="../static/js/index.js"></script>
+  </body>
+</html>
