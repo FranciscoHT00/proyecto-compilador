@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Proyecto Compilador</title>
+    <title>{{ _('Proyecto Compilador') }}</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,98 +14,89 @@
   <body>
     <header>
       <div class="d-flex flex-column align-items-center py-3 text-bg-dark">
-        <h1>Automata de Pila</h1>
-        <h2>Reconocedor de Palíndromos Binarios con Separador</h2>
+        <h1>{{ _('Proyecto Compilador') }}</h1>
       </div>
     </header>
 
     <div class="container-fluid">
       <div class="row">
         <nav class="col-2 py-3 text-bg-dark">
-          <h4>{{ user.name }}</h4>
+          <h4>{{ _('Panel de Control') }}</h4>
           <hr />
           <ul class="nav nav-pills flex-column">
             <li class="py-2">
-              <input type="text" class="w-100" id="input_word" />
-            </li>
-            <li class="py-2">
               <button type="button" class="btn btn-primary" id="load_btn">
-                Cargar
+                {{_('Validar')}}
               </button>
             </li>
             <li class="py-2">
-              <div
-                class="btn-group-vertical"
-                role="group"
-                aria-label="Controles"
-              >
-                <button
-                  type="button"
-                  class="btn btn-outline-light"
-                  id="start_btn"
-                >
-                  Iniciar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-light"
-                  id="pause_btn"
-                >
-                  Pausar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-light"
-                  id="cancel_btn"
-                >
-                  Cancelar
-                </button>
-              </div>
+              <button type="button" class="btn btn-primary" id="load_btn">
+                {{_('Ejecutar')}}
+              </button>
             </li>
+
             <li>
-              <label for="speed_input" class="form-label">Velocidad</label>
-              <input
-                type="range"
-                class="form-range w-75"
-                min="1"
-                max="5"
-                id="speed_input"
-              />
+              <label for="examples" class="form-label d-block"
+                >{{_('Ejemplos')}}</label
+              >
+              <select
+                class="form-select w-75 my-2"
+                name="examples"
+                id="examples"
+              >
+                <option value="example_1">{{_('Ejemplo 1')}}</option>
+                <option value="example_2">{{_('Ejemplo 2')}}</option>
+                <option value="example_3">{{_('Ejemplo 3')}}</option>
+              </select>
+              <button type="button" class="btn btn-primary" id="load_btn">
+                {{_('Cargar Ejemplo')}}
+              </button>
             </li>
           </ul>
-          <a href="index_en.html">English</a>
-          <a href="index_pt.html">Português</a>
+
+          <hr />
+
+          <h4>{{_('Resultado')}}</h4>
+          <input type="text" class="form-control w-75" readonly />
+
+          <hr />
+
+          <h5>{{_('Idioma')}}</h5>
+          <a href="{{ url_for(request.endpoint, lang_code='es') }}">Español</a
+          >&nbsp;
+          <a href="{{ url_for(request.endpoint, lang_code='en') }}">English</a
+          >&nbsp;
+          <a href="{{ url_for(request.endpoint, lang_code='pt') }}">Português</a
+          >&nbsp;
+          <a href="{{ url_for(request.endpoint, lang_code='it') }}">Italiano</a
+          >&nbsp;
+          <a href="{{ url_for(request.endpoint, lang_code='de') }}">Deutsch</a
+          >&nbsp;
+          <a href="{{ url_for(request.endpoint, lang_code='fr') }}">Français</a>
+
           <hr />
         </nav>
 
-        <main class="col-9">
+        <main class="col-10">
           <div class="row h-100">
-            <div class="col p-0" id="graph_container"></div>
+            <div class="col bg-dark">
+              <h3 class="text-bg-dark text-center py-3 m-0">{{_('Código')}}</h3>
+              <textarea
+                class="form-control"
+                rows="10"
+                style="resize: none"
+              ></textarea>
+              <h3 class="text-bg-dark text-center py-3 m-0">
+                {{_('Consola')}}
+              </h3>
+              <textarea
+                class="form-control"
+                rows="5"
+                style="resize: none"
+              ></textarea>
+            </div>
           </div>
         </main>
-
-        <div class="d-flex pe-0 col-1 border border-2 border-dark">
-          <div
-            class="d-flex pe-2 flex-column-reverse w-100 overflow-scroll"
-            style="height: 400px"
-            id="stack_container"
-          ></div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-2 bg-dark"></div>
-        <div class="col-9 border-top border-2 border-dark">
-          <div
-            class="d-flex flex-row justify-content-center overflow-scroll py-0"
-            id="word_container"
-          >
-            <h2 class="text-center mb-0">NO HAY PALABRA ACTIVA</h2>
-          </div>
-        </div>
-        <div class="col-1 text-bg-dark text-center">
-          <h2>PILA</h2>
-        </div>
       </div>
     </div>
 
