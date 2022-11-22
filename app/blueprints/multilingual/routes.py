@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, g, redirect, request, current_app, abort, url_for
+from flask import render_template, Blueprint, g, redirect, request, current_app, abort, url_for, jsonify
 from flask_babel import _, refresh
 from app import app
 
@@ -31,3 +31,4 @@ def before_request():
 @multilingual.route('/index')
 def index():
     return render_template('multilingual/index.html')
+

@@ -25,12 +25,12 @@
           <hr />
           <ul class="nav nav-pills flex-column">
             <li class="py-2">
-              <button type="button" class="btn btn-primary" id="load_btn">
+              <button type="button" class="btn btn-primary" id="validate_btn">
                 {{_('Validar')}}
               </button>
             </li>
             <li class="py-2">
-              <button type="button" class="btn btn-primary" id="load_btn">
+              <button type="button" class="btn btn-primary" id="run_btn">
                 {{_('Ejecutar')}}
               </button>
             </li>
@@ -48,7 +48,7 @@
                 <option value="example_2">{{_('Ejemplo 2')}}</option>
                 <option value="example_3">{{_('Ejemplo 3')}}</option>
               </select>
-              <button type="button" class="btn btn-primary" id="load_btn">
+              <button type="button" class="btn btn-primary" id="example_btn">
                 {{_('Cargar Ejemplo')}}
               </button>
             </li>
@@ -85,6 +85,7 @@
                 class="form-control"
                 rows="10"
                 style="resize: none"
+                id="code_input"
               ></textarea>
               <h3 class="text-bg-dark text-center py-3 m-0">
                 {{_('Consola')}}
@@ -93,6 +94,7 @@
                 class="form-control"
                 rows="5"
                 style="resize: none"
+                id="console"
               ></textarea>
             </div>
           </div>
@@ -117,7 +119,6 @@
       integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
       crossorigin="anonymous"
     ></script>
-    <script src="https://unpkg.com/gojs/release/go.js"></script>
     <script src="../static/js/index.js"></script>
   </body>
 </html>
