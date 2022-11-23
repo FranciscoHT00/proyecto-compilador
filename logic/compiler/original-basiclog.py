@@ -38,7 +38,7 @@ else:
 
 # Interactive mode.  This incrementally adds/deletes statements
 # from the program stored in the BasicInterpreter object.  In
-# addition, special commands 'ESTRENO','ABER',and 'ARRANCA' are added.
+# addition, special commands 'NEW','LIST',and 'RUN' are added.
 # Specifying a line number with no code deletes that line from
 # the program.
 
@@ -59,14 +59,14 @@ while 1:
         b.add_statements(prog)
     else:
         stat = prog[keys[0]]
-        if stat[0] == 'ARRANCA':
+        if stat[0] == 'RUN':
             try:
                 b.run()
             except RuntimeError:
                 pass
-        elif stat[0] == 'ABER':
+        elif stat[0] == 'LIST':
             b.list()
         elif stat[0] == 'BLANK':
             b.del_line(stat[1])
-        elif stat[0] == 'ESTRENO':
+        elif stat[0] == 'NEW':
             b.new()

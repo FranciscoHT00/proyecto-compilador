@@ -61,7 +61,7 @@ def p_statement(p):
 def p_statement_interactive(p):
     '''statement : ARRANCA NEWLINE
                  | ABER NEWLINE
-                 | ESTRENA NEWLINE'''
+                 | ESTRENO NEWLINE'''
     p[0] = (0, (p[1], 0))
 
 # Blank line number
@@ -99,17 +99,17 @@ def p_command_let_bad(p):
     '''command : GUARDA variable EQUALS error'''
     p[0] = "BAD EXPRESSION IN GUARDA"
 
-# READ statement
+# LEER statement
 
 
 def p_command_read(p):
-    '''command : READ varlist'''
-    p[0] = ('READ', p[2])
+    '''command : LEER varlist'''
+    p[0] = ('LEER', p[2])
 
 
 def p_command_read_bad(p):
-    '''command : READ error'''
-    p[0] = "MALFORMED VARIABLE ABER IN READ"
+    '''command : LEER error'''
+    p[0] = "MALFORMED VARIABLE ABER IN LEER"
 
 # INFO statement
 
@@ -236,12 +236,12 @@ def p_command_end(p):
     '''command : KO'''
     p[0] = ('KO',)
 
-# CHISME statement
+# REM statement
 
 
 def p_command_rem(p):
-    '''command : CHISME'''
-    p[0] = ('CHISME', p[1])
+    '''command : REM'''
+    p[0] = ('REM', p[1])
 
 # FRENALA statement
 

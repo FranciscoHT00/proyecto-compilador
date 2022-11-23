@@ -269,8 +269,8 @@ class BasicInterpreter:
                 value = instr[2]
                 self.assign(target, value)
 
-            # READ statement
-            elif op == 'READ':
+            # LEER statement
+            elif op == 'LEER':
                 for target in instr[1]:
                     if self.dc < len(self.data):
                         value = ('NUM', self.data[self.dc])
@@ -336,7 +336,7 @@ class BasicInterpreter:
             elif op == 'REVER':
                 newline = instr[1]
                 if self.gosub:
-                    print("ALREADY IN A SUBROUTINE AT LINE %s" % line)
+                    print("ALLEERY IN A SUBROUTINE AT LINE %s" % line)
                     return
                 self.gosub = self.stat[self.pc]
                 self.goto(newline)
@@ -410,7 +410,7 @@ class BasicInterpreter:
             if op in ['KO', 'FRENALA', 'DEVUELVE']:
                 print("%s %s" % (line, op))
                 continue
-            elif op == 'CHISME':
+            elif op == 'REM':
                 print("%s %s" % (line, instr[1]))
             elif op == 'IMPRIMICION':
                 _out = "%s %s " % (line, op)
@@ -431,8 +431,8 @@ class BasicInterpreter:
             elif op == 'GUARDA':
                 print("%s GUARDA %s = %s" %
                       (line, self.var_str(instr[1]), self.expr_str(instr[2])))
-            elif op == 'READ':
-                _out = "%s READ " % line
+            elif op == 'LEER':
+                _out = "%s LEER " % line
                 first = 1
                 for r in instr[1]:
                     if not first:
