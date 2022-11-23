@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-11-21 18:42-0500\n"
+"POT-Creation-Date: 2022-11-23 10:11-0500\n"
 "PO-Revision-Date: 2022-11-21 18:45-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
@@ -28,46 +28,84 @@ msgid "Panel de Control"
 msgstr "Painel de controle"
 
 #: app/blueprints/multilingual/templates/multilingual/index.html:29
-msgid "Validar"
-msgstr "Validar"
-
-#: app/blueprints/multilingual/templates/multilingual/index.html:34
 msgid "Ejecutar"
 msgstr "Corre"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:40
+#: app/blueprints/multilingual/templates/multilingual/index.html:35
 msgid "Ejemplos"
 msgstr "Exemplos"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:47
+#: app/blueprints/multilingual/templates/multilingual/index.html:42
 msgid "Ejemplo 1"
 msgstr "Exemplo 1"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:48
+#: app/blueprints/multilingual/templates/multilingual/index.html:43
 msgid "Ejemplo 2"
 msgstr "Exemplo 2"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:49
+#: app/blueprints/multilingual/templates/multilingual/index.html:44
 msgid "Ejemplo 3"
 msgstr "Exemplo 3"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:52
+#: app/blueprints/multilingual/templates/multilingual/index.html:47
 msgid "Cargar Ejemplo"
 msgstr "Carregar Exemplo"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:59
-msgid "Resultado"
-msgstr "Resultado"
-
-#: app/blueprints/multilingual/templates/multilingual/index.html:64
+#: app/blueprints/multilingual/templates/multilingual/index.html:54
 msgid "Idioma"
 msgstr "Idioma"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:79
+#: app/blueprints/multilingual/templates/multilingual/index.html:73
 msgid "Código"
 msgstr "Código"
 
-#: app/blueprints/multilingual/templates/multilingual/index.html:86
+#: app/blueprints/multilingual/templates/multilingual/index.html:81
 msgid "Consola"
 msgstr "Console"
+
+#: app/blueprints/multilingual/templates/multilingual/index.html:112
+msgid "../static/js/index.js"
+msgstr "../static/js/index_pt.js"
+
+#~ msgid "Proyecto Compilador"
+#~ msgstr "Projeto Compilador"
+
+#~ msgid "Panel de Control"
+#~ msgstr "Painel de controle"
+
+#~ msgid "Validar"
+#~ msgstr "Validar"
+
+#~ msgid "Ejecutar"
+#~ msgstr "Corre"
+
+#~ msgid "Ejemplos"
+#~ msgstr "Exemplos"
+
+#~ msgid "Ejemplo 1"
+#~ msgstr "Exemplo 1"
+
+#~ msgid "Ejemplo 2"
+#~ msgstr "Exemplo 2"
+
+#~ msgid "Ejemplo 3"
+#~ msgstr "Exemplo 3"
+
+#~ msgid "Cargar Ejemplo"
+#~ msgstr "Carregar Exemplo"
+
+#~ msgid "Resultado"
+#~ msgstr "Resultado"
+
+#~ msgid "Idioma"
+#~ msgstr "Idioma"
+
+#~ msgid "Código"
+#~ msgstr "Código"
+
+#~ msgid "Consola"
+#~ msgstr "Console"
+
+#~ msgid "../static/js/index.js"
+#~ msgstr ""
 

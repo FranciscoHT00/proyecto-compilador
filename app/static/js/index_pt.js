@@ -10,7 +10,7 @@ function runCode() {
 
   console.log(code);
 
-  playMessage("Ejecutando código.");
+  playMessage("Código em execução.");
 
   $.ajax({
     data: {
@@ -65,7 +65,7 @@ function loadExample() {
   }
 
   $("#code_input").val(example);
-  playMessage("Ejemplo cargado.");
+  playMessage("Exemplo carregado.");
 }
 
 function playMessage(text) {
@@ -74,7 +74,7 @@ function playMessage(text) {
   message.rate = 1;
   message.pitch = 1;
   message.text = text;
-  message.lang = "es-ES";
+  message.lang = "pt-BR";
 
   speechSynthesis.speak(message);
 }
