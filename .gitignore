@@ -556,3 +556,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+logic\code.bas
