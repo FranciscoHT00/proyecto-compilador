@@ -3,8 +3,8 @@
 from ply import lex
 
 keywords = (
-    'GUARDA', 'LEE', 'INFO', 'IMPRIMICION', 'TP', 'SI', 'ENTONCES', 'DESDE', 'PROXIMARDO', 'HASTA', 'ESQUIVA',
-    'KO', 'FRENALA', 'DEF', 'REVER', 'RESERVA', 'CHISME', 'DEVUELVE', 'ARRANCA', 'ABER', 'ESTRENA',
+    'LET', 'READ', 'DATA', 'PRINT', 'GOTO', 'IF', 'THEN', 'FOR', 'NEXT', 'TO', 'STEP',
+    'END', 'STOP', 'DEF', 'GOSUB', 'DIM', 'REM', 'RETURN', 'RUN', 'LIST', 'NEW',
 )
 
 tokens = keywords + (
@@ -18,7 +18,7 @@ t_ignore = ' \t'
 
 
 def t_REM(t):
-    r'CHISME .*'
+    r'REM .*'
     return t
 
 

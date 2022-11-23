@@ -30,7 +30,7 @@ class BasicInterpreter:
     def collect_data(self):
         self.data = []
         for lineno in self.stat:
-            if self.prog[lineno][0] == 'INFO':
+            if self.prog[lineno][0] == 'DATA':
                 self.data = self.data + self.prog[lineno][1]
         self.dc = 0                  # Initialize the data counter
 
@@ -38,32 +38,32 @@ class BasicInterpreter:
     def check_end(self):
         has_end = 0
         for lineno in self.stat:
-            if self.prog[lineno][0] == 'KO' and not has_end:
+            if self.prog[lineno][0] == 'END' and not has_end:
                 has_end = lineno
         if not has_end:
-            print("NO KO INSTRUCTION")
+            print("NO END INSTRUCTION")
             self.error = 1
             return
         if has_end != lineno:
-            print("KO IS NOT LAST")
+            print("END IS NOT LAST")
             self.error = 1
 
     # Check loops
     def check_loops(self):
         for pc in range(len(self.stat)):
             lineno = self.stat[pc]
-            if self.prog[lineno][0] == 'DESDE':
+            if self.prog[lineno][0] == 'FOR':
                 forinst = self.prog[lineno]
                 loopvar = forinst[1]
                 for i in range(pc + 1, len(self.stat)):
-                    if self.prog[self.stat[i]][0] == 'PROXIMARDO':
+                    if self.prog[self.stat[i]][0] == 'NEXT':
                         nextvar = self.prog[self.stat[i]][1]
                         if nextvar != loopvar:
                             continue
                         self.loopend[pc] = i
                         break
                 else:
-                    print("DESDE WITHOUT PROXIMARDO AT LINE %s" % self.stat[pc])
+                    print("FOR WITHOUT NEXT AT LINE %s" % self.stat[pc])
                     self.error = 1
 
     # Evaluate an expression
@@ -106,7 +106,7 @@ class BasicInterpreter:
                     if var in self.lists:
                         dim1val = self.eval(dim1)
                         if dim1val < 1 or dim1val > len(self.lists[var]):
-                            print("ABER INDEX OUT OF BOUNDS AT LINE %s" %
+                            print("LIST INDEX OUT OF BOUNDS AT LINE %s" %
                                   self.stat[self.pc])
                             raise RuntimeError
                         return self.lists[var][dim1val - 1]
@@ -231,18 +231,18 @@ class BasicInterpreter:
 
             op = instr[0]
 
-            # KO and FRENALA statements
-            if op == 'KO' or op == 'FRENALA':
+            # END and STOP statements
+            if op == 'END' or op == 'STOP':
                 break           # We're done
 
-            # TP statement
-            elif op == 'TP':
+            # GOTO statement
+            elif op == 'GOTO':
                 newline = instr[1]
                 self.goto(newline)
                 continue
 
-            # IMPRIMICION statement
-            elif op == 'IMPRIMICION':
+            # PRINT statement
+            elif op == 'PRINT':
                 plist = instr[1]
                 out = ""
                 for label, val in plist:
@@ -263,8 +263,8 @@ class BasicInterpreter:
                 if end == ';':
                     sys.stdout.write(" " * (3 - (len(out) % 3)))
 
-            # GUARDA statement
-            elif op == 'GUARDA':
+            # LET statement
+            elif op == 'LET':
                 target = instr[1]
                 value = instr[2]
                 self.assign(target, value)
@@ -279,14 +279,14 @@ class BasicInterpreter:
                     else:
                         # No more data.  Program ends
                         return
-            elif op == 'SI':
+            elif op == 'IF':
                 relop = instr[1]
                 newline = instr[2]
                 if (self.releval(relop)):
                     self.goto(newline)
                     continue
 
-            elif op == 'DESDE':
+            elif op == 'FOR':
                 loopvar = instr[1]
                 initval = instr[2]
                 finval = instr[3]
@@ -314,15 +314,15 @@ class BasicInterpreter:
                 else:
                     relop = '<='
                 if not self.releval(('RELOP', relop, newvalue, finval)):
-                    # Loop is done. Jump to the PROXIMARDO
+                    # Loop is done. Jump to the NEXT
                     self.pc = self.loopend[self.pc]
                     self.loops.pop()
                 else:
                     self.assign((loopvar, None, None), newvalue)
 
-            elif op == 'PROXIMARDO':
+            elif op == 'NEXT':
                 if not self.loops:
-                    print("PROXIMARDO WITHOUT DESDE AT LINE %s" % line)
+                    print("NEXT WITHOUT FOR AT LINE %s" % line)
                     return
 
                 nextvar = instr[1]
@@ -330,10 +330,10 @@ class BasicInterpreter:
                 loopinst = self.prog[self.stat[self.pc]]
                 forvar = loopinst[1]
                 if nextvar != forvar:
-                    print("PROXIMARDO DOESN'T MATCH DESDE AT LINE %s" % line)
+                    print("NEXT DOESN'T MATCH FOR AT LINE %s" % line)
                     return
                 continue
-            elif op == 'REVER':
+            elif op == 'GOSUB':
                 newline = instr[1]
                 if self.gosub:
                     print("ALREADY IN A SUBROUTINE AT LINE %s" % line)
@@ -342,9 +342,9 @@ class BasicInterpreter:
                 self.goto(newline)
                 continue
 
-            elif op == 'DEVUELVE':
+            elif op == 'RETURN':
                 if not self.gosub:
-                    print("DEVUELVE WITHOUT A REVER AT LINE %s" % line)
+                    print("RETURN WITHOUT A GOSUB AT LINE %s" % line)
                     return
                 self.goto(self.gosub)
                 self.gosub = None
@@ -359,7 +359,7 @@ class BasicInterpreter:
                     return self.eval(expr)
                 self.functions[fname] = eval_func
 
-            elif op == 'RESERVA':
+            elif op == 'DIM':
                 for vname, x, y in instr[1]:
                     if y == 0:
                         # Single dimension variable
@@ -407,12 +407,12 @@ class BasicInterpreter:
         for line in stat:
             instr = self.prog[line]
             op = instr[0]
-            if op in ['KO', 'FRENALA', 'DEVUELVE']:
+            if op in ['END', 'STOP', 'RETURN']:
                 print("%s %s" % (line, op))
                 continue
-            elif op == 'CHISME':
+            elif op == 'REM':
                 print("%s %s" % (line, instr[1]))
-            elif op == 'IMPRIMICION':
+            elif op == 'PRINT':
                 _out = "%s %s " % (line, op)
                 first = 1
                 for p in instr[1]:
@@ -428,8 +428,8 @@ class BasicInterpreter:
                 if instr[2]:
                     _out += instr[2]
                 print(_out)
-            elif op == 'GUARDA':
-                print("%s GUARDA %s = %s" %
+            elif op == 'LET':
+                print("%s LET %s = %s" %
                       (line, self.var_str(instr[1]), self.expr_str(instr[2])))
             elif op == 'READ':
                 _out = "%s READ " % line
@@ -440,24 +440,24 @@ class BasicInterpreter:
                     _out += self.var_str(r)
                     first = 0
                 print(_out)
-            elif op == 'SI':
-                print("%s SI %s ENTONCES %d" %
+            elif op == 'IF':
+                print("%s IF %s THEN %d" %
                       (line, self.relexpr_str(instr[1]), instr[2]))
-            elif op == 'TP' or op == 'REVER':
+            elif op == 'GOTO' or op == 'GOSUB':
                 print("%s %s %s" % (line, op, instr[1]))
-            elif op == 'DESDE':
-                _out = "%s DESDE %s = %s HASTA %s" % (
+            elif op == 'FOR':
+                _out = "%s FOR %s = %s TO %s" % (
                     line, instr[1], self.expr_str(instr[2]), self.expr_str(instr[3]))
                 if instr[4]:
-                    _out += " ESQUIVA %s" % (self.expr_str(instr[4]))
+                    _out += " STEP %s" % (self.expr_str(instr[4]))
                 print(_out)
-            elif op == 'PROXIMARDO':
-                print("%s PROXIMARDO %s" % (line, instr[1]))
+            elif op == 'NEXT':
+                print("%s NEXT %s" % (line, instr[1]))
             elif op == 'FUNC':
                 print("%s DEF %s(%s) = %s" %
                       (line, instr[1], instr[2], self.expr_str(instr[3])))
-            elif op == 'RESERVA':
-                _out = "%s RESERVA " % line
+            elif op == 'DIM':
+                _out = "%s DIM " % line
                 first = 1
                 for vname, x, y in instr[1]:
                     if not first:
@@ -469,8 +469,8 @@ class BasicInterpreter:
                         _out += "%s(%d,%d)" % (vname, x, y)
 
                 print(_out)
-            elif op == 'INFO':
-                _out = "%s INFO " % line
+            elif op == 'DATA':
+                _out = "%s DATA " % line
                 first = 1
                 for v in instr[1]:
                     if not first:

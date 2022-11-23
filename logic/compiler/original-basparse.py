@@ -59,9 +59,9 @@ def p_statement(p):
 
 
 def p_statement_interactive(p):
-    '''statement : ARRANCA NEWLINE
-                 | ABER NEWLINE
-                 | ESTRENA NEWLINE'''
+    '''statement : RUN NEWLINE
+                 | LIST NEWLINE
+                 | NEW NEWLINE'''
     p[0] = (0, (p[1], 0))
 
 # Blank line number
@@ -87,17 +87,17 @@ def p_statement_newline(p):
     '''statement : NEWLINE'''
     p[0] = None
 
-# GUARDA statement
+# LET statement
 
 
 def p_command_let(p):
-    '''command : GUARDA variable EQUALS expr'''
-    p[0] = ('GUARDA', p[2], p[4])
+    '''command : LET variable EQUALS expr'''
+    p[0] = ('LET', p[2], p[4])
 
 
 def p_command_let_bad(p):
-    '''command : GUARDA variable EQUALS error'''
-    p[0] = "BAD EXPRESSION IN GUARDA"
+    '''command : LET variable EQUALS error'''
+    p[0] = "BAD EXPRESSION IN LET"
 
 # READ statement
 
@@ -109,33 +109,33 @@ def p_command_read(p):
 
 def p_command_read_bad(p):
     '''command : READ error'''
-    p[0] = "MALFORMED VARIABLE ABER IN READ"
+    p[0] = "MALFORMED VARIABLE LIST IN READ"
 
-# INFO statement
+# DATA statement
 
 
 def p_command_data(p):
-    '''command : INFO numlist'''
-    p[0] = ('INFO', p[2])
+    '''command : DATA numlist'''
+    p[0] = ('DATA', p[2])
 
 
 def p_command_data_bad(p):
-    '''command : INFO error'''
-    p[0] = "MALFORMED NUMBER ABER IN INFO"
+    '''command : DATA error'''
+    p[0] = "MALFORMED NUMBER LIST IN DATA"
 
-# IMPRIMICION statement
+# PRINT statement
 
 
 def p_command_print(p):
-    '''command : IMPRIMICION plist optend'''
-    p[0] = ('IMPRIMICION', p[2], p[3])
+    '''command : PRINT plist optend'''
+    p[0] = ('PRINT', p[2], p[3])
 
 
 def p_command_print_bad(p):
-    '''command : IMPRIMICION error'''
-    p[0] = "MALFORMED IMPRIMICION STATEMENT"
+    '''command : PRINT error'''
+    p[0] = "MALFORMED PRINT STATEMENT"
 
-# Optional ending on IMPRIMICION. Either a comma (,) or semicolon (;)
+# Optional ending on PRINT. Either a comma (,) or semicolon (;)
 
 
 def p_optend(p):
@@ -147,108 +147,108 @@ def p_optend(p):
     else:
         p[0] = None
 
-# IMPRIMICION statement with no arguments
+# PRINT statement with no arguments
 
 
 def p_command_print_empty(p):
-    '''command : IMPRIMICION'''
-    p[0] = ('IMPRIMICION', [], None)
+    '''command : PRINT'''
+    p[0] = ('PRINT', [], None)
 
-# TP statement
+# GOTO statement
 
 
 def p_command_goto(p):
-    '''command : TP INTEGER'''
-    p[0] = ('TP', int(p[2]))
+    '''command : GOTO INTEGER'''
+    p[0] = ('GOTO', int(p[2]))
 
 
 def p_command_goto_bad(p):
-    '''command : TP error'''
-    p[0] = "INVALID LINE NUMBER IN TP"
+    '''command : GOTO error'''
+    p[0] = "INVALID LINE NUMBER IN GOTO"
 
-# SI-ENTONCES statement
+# IF-THEN statement
 
 
 def p_command_if(p):
-    '''command : SI relexpr ENTONCES INTEGER'''
-    p[0] = ('SI', p[2], int(p[4]))
+    '''command : IF relexpr THEN INTEGER'''
+    p[0] = ('IF', p[2], int(p[4]))
 
 
 def p_command_if_bad(p):
-    '''command : SI error ENTONCES INTEGER'''
+    '''command : IF error THEN INTEGER'''
     p[0] = "BAD RELATIONAL EXPRESSION"
 
 
 def p_command_if_bad2(p):
-    '''command : SI relexpr ENTONCES error'''
-    p[0] = "INVALID LINE NUMBER IN ENTONCES"
+    '''command : IF relexpr THEN error'''
+    p[0] = "INVALID LINE NUMBER IN THEN"
 
-# DESDE statement
+# FOR statement
 
 
 def p_command_for(p):
-    '''command : DESDE ID EQUALS expr HASTA expr optstep'''
-    p[0] = ('DESDE', p[2], p[4], p[6], p[7])
+    '''command : FOR ID EQUALS expr TO expr optstep'''
+    p[0] = ('FOR', p[2], p[4], p[6], p[7])
 
 
 def p_command_for_bad_initial(p):
-    '''command : DESDE ID EQUALS error HASTA expr optstep'''
-    p[0] = "BAD INITIAL VALUE IN DESDE STATEMENT"
+    '''command : FOR ID EQUALS error TO expr optstep'''
+    p[0] = "BAD INITIAL VALUE IN FOR STATEMENT"
 
 
 def p_command_for_bad_final(p):
-    '''command : DESDE ID EQUALS expr HASTA error optstep'''
-    p[0] = "BAD FINAL VALUE IN DESDE STATEMENT"
+    '''command : FOR ID EQUALS expr TO error optstep'''
+    p[0] = "BAD FINAL VALUE IN FOR STATEMENT"
 
 
 def p_command_for_bad_step(p):
-    '''command : DESDE ID EQUALS expr HASTA expr ESQUIVA error'''
-    p[0] = "MALFORMED ESQUIVA IN DESDE STATEMENT"
+    '''command : FOR ID EQUALS expr TO expr STEP error'''
+    p[0] = "MALFORMED STEP IN FOR STATEMENT"
 
-# Optional ESQUIVA qualifier on DESDE statement
+# Optional STEP qualifier on FOR statement
 
 
 def p_optstep(p):
-    '''optstep : ESQUIVA expr
+    '''optstep : STEP expr
                | empty'''
     if len(p) == 3:
         p[0] = p[2]
     else:
         p[0] = None
 
-# PROXIMARDO statement
+# NEXT statement
 
 
 def p_command_next(p):
-    '''command : PROXIMARDO ID'''
+    '''command : NEXT ID'''
 
-    p[0] = ('PROXIMARDO', p[2])
+    p[0] = ('NEXT', p[2])
 
 
 def p_command_next_bad(p):
-    '''command : PROXIMARDO error'''
-    p[0] = "MALFORMED PROXIMARDO"
+    '''command : NEXT error'''
+    p[0] = "MALFORMED NEXT"
 
-# KO statement
+# END statement
 
 
 def p_command_end(p):
-    '''command : KO'''
-    p[0] = ('KO',)
+    '''command : END'''
+    p[0] = ('END',)
 
-# CHISME statement
+# REM statement
 
 
 def p_command_rem(p):
-    '''command : CHISME'''
-    p[0] = ('CHISME', p[1])
+    '''command : REM'''
+    p[0] = ('REM', p[1])
 
-# FRENALA statement
+# STOP statement
 
 
 def p_command_stop(p):
-    '''command : FRENALA'''
-    p[0] = ('FRENALA',)
+    '''command : STOP'''
+    p[0] = ('STOP',)
 
 # DEF statement
 
@@ -267,38 +267,38 @@ def p_command_def_bad_arg(p):
     '''command : DEF ID LPAREN error RPAREN EQUALS expr'''
     p[0] = "BAD ARGUMENT IN DEF STATEMENT"
 
-# REVER statement
+# GOSUB statement
 
 
 def p_command_gosub(p):
-    '''command : REVER INTEGER'''
-    p[0] = ('REVER', int(p[2]))
+    '''command : GOSUB INTEGER'''
+    p[0] = ('GOSUB', int(p[2]))
 
 
 def p_command_gosub_bad(p):
-    '''command : REVER error'''
-    p[0] = "INVALID LINE NUMBER IN REVER"
+    '''command : GOSUB error'''
+    p[0] = "INVALID LINE NUMBER IN GOSUB"
 
-# DEVUELVE statement
+# RETURN statement
 
 
 def p_command_return(p):
-    '''command : DEVUELVE'''
-    p[0] = ('DEVUELVE',)
+    '''command : RETURN'''
+    p[0] = ('RETURN',)
 
-# RESERVA statement
+# DIM statement
 
 
 def p_command_dim(p):
-    '''command : RESERVA dimlist'''
-    p[0] = ('RESERVA', p[2])
+    '''command : DIM dimlist'''
+    p[0] = ('DIM', p[2])
 
 
 def p_command_dim_bad(p):
-    '''command : RESERVA error'''
-    p[0] = "MALFORMED VARIABLE ABER IN RESERVA"
+    '''command : DIM error'''
+    p[0] = "MALFORMED VARIABLE LIST IN DIM"
 
-# List of variables supplied to RESERVA statement
+# List of variables supplied to DIM statement
 
 
 def p_dimlist(p):
@@ -310,7 +310,7 @@ def p_dimlist(p):
     else:
         p[0] = [p[1]]
 
-# RESERVA items
+# DIM items
 
 
 def p_dimitem_single(p):
