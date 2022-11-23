@@ -1,11 +1,8 @@
 $(document).ready(function () {
-  $("#run_btn").prop("disabled", true);
-
-  $("#validate_btn").on("click", validateCode);
   $("#run_btn").on("click", runCode);
 });
 
-function validateCode() {
+function runCode() {
   var code = $("#code_input").val();
   code += "\n";
 
@@ -26,5 +23,3 @@ function validateCode() {
       alert(errorThrown);
     });
 }
-
-function runCode() {}
