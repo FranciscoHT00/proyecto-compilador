@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 function validateCode() {
   var code = $("#code_input").val();
-  // code += "\n";
+  code += "\n";
 
   console.log(code);
 
