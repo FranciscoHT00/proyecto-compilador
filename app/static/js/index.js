@@ -7,6 +7,7 @@ $(document).ready(function () {
 
 function validateCode() {
   var code = $("#code_input").val();
+  // code += "\n";
 
   console.log(code);
 
@@ -16,10 +17,10 @@ function validateCode() {
     },
     type: "POST",
     dataType: "json",
-    url: "/validate",
+    url: "/run",
   })
     .done(function (response) {
-      result = response;
+      $("#console").val(response);
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
       alert(errorThrown);

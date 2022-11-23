@@ -1,6 +1,7 @@
 from flask import Flask, request, g, redirect, url_for, jsonify
 from flask_babel import Babel
 from config import Config
+from logic.compiler import logic
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -23,14 +24,15 @@ def home():
     g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
     return redirect(url_for('multilingual.index'))
 
-@app.route('/validate', methods=["POST"])
+@app.route('/run', methods=["POST"])
 def validate():
     
     code = request.form['code']
 
-    f = open("./logic/code.bas", "w+")
-    f.write(code)
+    logic.updateFile(code)
 
-    print(code)
+    result = logic.runCode()
 
-    return jsonify(True)
+    print(result)
+    
+    return jsonify(result)
